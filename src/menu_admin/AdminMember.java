@@ -11,7 +11,7 @@ public class AdminMember implements MenuCommand {
 
 	@Override
 	public void init() {
-
+		
 	}
 
 	@Override
