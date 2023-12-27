@@ -27,7 +27,7 @@ public class ItemDAO {
 		if (itemList.size() == 0)
 			return null;
 		for (Item s : itemList) {
-			if (s.getItemName().equals(item)) {
+			if (s.getItemName().equals(item) || s.getCategoryName().equals(item)) {
 				return item;
 			}
 		}
@@ -38,7 +38,7 @@ public class ItemDAO {
 	public void addItem() {
 		String name = Util.getValueS("추가하실 아이템 입력");
 		if (checkItem(name) != null) {
-			System.out.println("아이템이 존재합니다");
+			System.out.println("아이템or카테고리가 이 존재합니다");
 			return;
 		}
 		String cate = Util.getValueS("카테고리를 입력하세요");
@@ -49,21 +49,43 @@ public class ItemDAO {
 
 	public void delItem() {
 		showItem();
-		int input=Util.getValueI("삭제할 아이템 번호를 입력하세요", 1, itemList.size());
+		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 1, itemList.size());
 	}
-	
+
 	public void showItem() {
-		if(itemList.size()==0) return;
-		for(Item i : itemList) {
+		if (itemList.size() == 0)
+			return;
+		for (Item i : itemList) {
 			System.out.println(i.toString());
 		}
 	}
+
 	public void showCate() {
-		if(itemList.size()==0) return;
-		for(int i=0; i<itemList.size(); i++) {
-			System.out.println("["+i+1+"]"  +  itemList.get(i).getCategoryName());
+		if (itemList.size() == 0)
+			return;
+		int cnt = 0;
+		for (int i = 0; i < itemList.size(); i++) {
+			for (int j = 0; j < itemList.size(); j++) {
+				if (!itemList.get(i).getCategoryName().equals(itemList.get(j).getCategoryName())) {
+					cnt++;
+				}
+			}
+		}
+		ArrayList<Item> temp = itemList;
+		temp = new ArrayList<Item>(cnt);
+		for (int i = 0; i < itemList.size(); i++) {
+			for (int j = 0; j < itemList.size(); j++) {
+				if (!itemList.get(i).getCategoryName().equals(itemList.get(j).getCategoryName())) {
+					Item ts = new Item(itemList.get(i).getCategoryName(), itemList.get(i).getItemName(),
+							itemList.get(i).getPrice());
+					temp.add(ts);
+				}
+			}
+		}
+		for(Item s : temp) {
+			System.out.println(s.getCategoryName());
+			break;
 		}
 	}
-	
 
 }

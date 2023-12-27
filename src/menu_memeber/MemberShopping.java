@@ -13,17 +13,16 @@ public class MemberShopping implements MenuCommand {
 	ItemDAO item;
 	@Override
 	public void init() {
-		item = ItemDAO.getInstance();
 		cont = MallController.getInstance();
-		System.out.printf("=====[회원 %s님]=====",cont.getLoginId());
-
+		System.out.printf("=====[회원 %s님]===== \n",cont.getLoginId());
 	}
 
 	@Override
 	public boolean update() {
+		item = ItemDAO.getInstance();
 		item.showCate();
 		int sel=Util.getValueI("번호를 입력하세요", 0, 10)-1;
-	
+		
 
 		return false;
 	}

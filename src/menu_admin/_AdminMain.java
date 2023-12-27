@@ -27,7 +27,8 @@ public class _AdminMain implements MenuCommand {
 		}else if(sel==3) {
 			cont.setNext("AdminBoard");
 		}else if(sel==4) {
-			
+			cont.setLoginId(null);
+			cont.setNext("MallMain");
 		}else{
 			
 		}
