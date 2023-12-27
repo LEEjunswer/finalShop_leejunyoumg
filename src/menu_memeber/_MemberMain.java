@@ -21,7 +21,7 @@ public class _MemberMain implements MenuCommand {
 			System.out.println("종료");
 			cont.setNext(null);
 		}else if(sel==1) {
-			
+			cont.setNext("MemberShoppning");
 		}else if(sel==2) {
 			
 		}else if(sel==3) {

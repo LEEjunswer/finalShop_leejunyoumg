@@ -9,5 +9,7 @@ public class _Main {
 		MallController con = MallController.getInstance();
 		con.init();
 	}
+	
+
 
 }

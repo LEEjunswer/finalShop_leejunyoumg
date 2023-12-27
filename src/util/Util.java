@@ -13,7 +13,7 @@ public class Util {
 
 	public static int getValueI(String msg, int start, int end) {
 		while (true) {// 숫자 입력
-			System.out.println("번호를 입력하세요");
+			System.out.println(msg);
 			try {
 				int input = scan.nextInt();
 				if (input < start || input > end) {

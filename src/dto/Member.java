@@ -46,4 +46,9 @@ public class Member {
 		this.memberName = memberName;
 	}
 
+	@Override
+	public String toString() {
+		return "[%d] [%s] [%s] [%s]".formatted(memberNum,id,pw,memberName);
+	}
+
 }

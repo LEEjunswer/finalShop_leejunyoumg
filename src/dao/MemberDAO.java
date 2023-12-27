@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import dto.Member;
+import util.Util;
 
 public class MemberDAO {
 	private ArrayList<Member> memberList;
@@ -21,7 +22,7 @@ public class MemberDAO {
 		if (memberList.size() == 0)
 			return null;
 		for (Member s : memberList) {
-			if(s.getId().equals(id)) {
+			if (s.getId().equals(id)) {
 				return id;
 			}
 		}
@@ -40,6 +41,48 @@ public class MemberDAO {
 			}
 		}
 		return null;
+	}
+
+	public void adminDelUser() {
+		showUser();
+		if (memberList.size() == 0)
+			return;
+		String input = Util.getValueS("삭제할 아이디를 입력하세요");
+
+		if (input.equals("admin")) {
+			System.out.println("관리자는 삭제 불가");
+			return;
+		}
+		if (getcheckId(input) == null) {
+			System.out.println("아이디가 존재하지않습니다");
+			return;
+		}
+		int idx = checkNumId(input);
+		System.out.println(input + "아이디 삭제 완료");
+		memberList.remove(idx);
+
+	}
+
+	public void showUser() {
+		if (memberList.size() == 0) {
+			System.out.println("회원이 존재하지 않습니다");
+			return;
+		}
+		for (Member s : memberList) {
+			System.out.println(s.toString());
+		}
+	}
+
+	private int checkNumId(String id) {
+		if (memberList.size() == 0)
+			return -1;
+		for (int i = 0; i < memberList.size(); i++) {
+			if (memberList.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+
 	}
 
 }
