@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 public class Board {
 	private static int num;
-	private int boradNum;
-	private String title;
-	private String id;
-	private String date;
-	private String contents;
-	private int hits;
+	private int boardNum; //보드넘버 1
+	private String title; // 제목
+	private String id;  //setLog;
+	private String date; //날짜 
+	private String contents; // 내용 
+	private int hits; //조회수
 
-	public Board(int boradNum, String title, String id, String date, String contents, int hits) {
-		this.boradNum = boradNum;
+	public Board(int boardNum, String title, String id, String date, String contents, int hits) {
+		this.boardNum = boardNum;
 		this.title = title;
 		this.id = id;
 		this.date = date;
@@ -29,11 +29,11 @@ public class Board {
 	}
 
 	public int getBoradNum() {
-		return boradNum;
+		return boardNum;
 	}
 
 	public void setBoradNum(int boradNum) {
-		this.boradNum = boradNum;
+		this.boardNum = boradNum;
 	}
 
 	public String getTitle() {
@@ -74,6 +74,11 @@ public class Board {
 
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+
+	@Override
+	public String toString() {
+		return "(%d) [제목 : %s    작성자 : %s  날짜 : %s  조회수 :%d]".formatted(boardNum,title,id,date,hits) ;
 	}
 
 }
