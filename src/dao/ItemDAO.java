@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import dto.Item;
 import util.Util;
@@ -61,31 +62,12 @@ public class ItemDAO {
 	}
 
 	public void showCate() {
-		if (itemList.size() == 0)
-			return;
-		int cnt = 0;
-		for (int i = 0; i < itemList.size(); i++) {
-			for (int j = 0; j < itemList.size(); j++) {
-				if (!itemList.get(i).getCategoryName().equals(itemList.get(j).getCategoryName())) {
-					cnt++;
-				}
-			}
+		if (itemList.size() == 0) {
+		System.out.println("주문하실 아이템이 없습니다");
+			return;	
 		}
-		ArrayList<Item> temp = itemList;
-		temp = new ArrayList<Item>(cnt);
-		for (int i = 0; i < itemList.size(); i++) {
-			for (int j = 0; j < itemList.size(); j++) {
-				if (!itemList.get(i).getCategoryName().equals(itemList.get(j).getCategoryName())) {
-					Item ts = new Item(itemList.get(i).getCategoryName(), itemList.get(i).getItemName(),
-							itemList.get(i).getPrice());
-					temp.add(ts);
-				}
-			}
-		}
-		for(Item s : temp) {
-			System.out.println(s.getCategoryName());
-			break;
-		}
+		ArrayList<Item> temp=itemList;
+		temp=Arrays.strea
 	}
 
 }
