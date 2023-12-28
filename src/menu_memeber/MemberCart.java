@@ -9,13 +9,15 @@ import util.Util;
 
 public class MemberCart implements MenuCommand {
 	MallController cont;
-
+	CartDAO dao;
 	@Override
 	public void init() {
+		dao= CartDAO.getInstance();
 		cont = MallController.getInstance();
 		System.out.println("=======[ 구매내역 ] ========");
 		System.out.println("[1]쇼핑하기\n[2]뒤로가기\n[0]종료\n");
 		System.out.println("========================");
+		dao.showMyCart(cont.getLoginId());
 	}
 
 	@Override

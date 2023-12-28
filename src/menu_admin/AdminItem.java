@@ -30,7 +30,7 @@ public class AdminItem implements MenuCommand {
 		} else if (sel == 1) {
 			dao.addItem();
 		} else if (sel == 2) {
-			dao.delItem();
+			dao.delItemAdmin();
 		} else if (sel == 3) {
 			
 		} else {

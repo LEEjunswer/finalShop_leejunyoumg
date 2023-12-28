@@ -20,7 +20,7 @@ public class AdminMember implements MenuCommand {
 
 	@Override
 	public boolean update() {
-		int sel=Util.getValueI("메뉴 선택[0-3]", 0, 3);
+		int sel=Util.getValueI("메뉴 선택", 0, 3);
 		if(sel==0) {
 			System.out.println("종료");
 			cont.setNext(null);

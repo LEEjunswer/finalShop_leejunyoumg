@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import controller.MallController;
+import dto.Cart;
 import dto.Item;
 import util.Util;
 
@@ -17,7 +18,7 @@ public class ItemDAO {
 	int count;
 
 	ItemDAO() {
-		cart = CartDAO.getInstance();
+		
 		itemList = new ArrayList<Item>();
 	}
 
@@ -51,14 +52,23 @@ public class ItemDAO {
 			return;
 		}
 		String cate = Util.getValueS("카테고리를 입력하세요");
-		int input = Util.getValueI("가격 입력[100-1000000]", 100, 1000000);
+		int input = Util.getValueI("가격 입력", 100, 1000000);
 		insertItem(cate, name, input);
 		System.out.println("카테고리=" + cate + "아이템=" + name + "아이템 추가 완료");
 	}
 
-	public void delItem() {
+	public void delItemAdmin() {
+		cart = CartDAO.getInstance();
 		showItem();
-		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 0, itemList.size()) - 1;
+		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 0, itemList.size());
+		System.out.printf("%s 아이템 삭제 완료",itemList.get(input-1).getItemName());
+		itemList.remove(input-1);
+		cart.myCartCheck(input);
+		
+	}
+	public void delItemMy(String id) {
+		cart = CartDAO.getInstance();
+		
 	}
 
 	public void showItem() {
