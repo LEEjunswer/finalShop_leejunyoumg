@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Board {
 	private static int num;
-	private int boradNum;
+	private int boardNum;
 	private String title;
 	private String id;
 	private String date;
@@ -12,14 +12,14 @@ public class Board {
 	private int hits;
 
 	public Board(int boradNum, String title, String id, String date, String contents, int hits) {
-		this.boradNum = boradNum;
+		this.boardNum = boardNum;
 		this.title = title;
 		this.id = id;
 		this.date = date;
 		this.contents = contents;
 		this.hits = hits;
 	}
-
+				
 	public static int getNum() {
 		return num;
 	}
@@ -29,11 +29,11 @@ public class Board {
 	}
 
 	public int getBoradNum() {
-		return boradNum;
+		return boardNum;
 	}
 
 	public void setBoradNum(int boradNum) {
-		this.boradNum = boradNum;
+		this.boardNum = boradNum;
 	}
 
 	public String getTitle() {
@@ -74,6 +74,17 @@ public class Board {
 
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+	@Override
+	public String toString() {
+		return "(%d) [제목 : %s   작성자:%s  날짜:%s 조회수:%d]".formatted(boardNum,title,id,date,contents,hits);
+	}
+	public String MyString() {
+		return " [제목 : %s   작성자:%s  날짜:%s 조회수:%d]".formatted(title,id,date,contents,hits);
+	}
+	
+	public String content() {
+		return "%s".formatted(contents);
 	}
 
 }

@@ -67,7 +67,7 @@ public class ItemDAO {
 			return;	
 		}
 		ArrayList<Item> temp=itemList;
-		temp=Arrays.strea
+//		temp=Arrays.strea
 	}
 
 }
