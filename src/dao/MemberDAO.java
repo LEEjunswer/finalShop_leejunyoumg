@@ -84,5 +84,25 @@ public class MemberDAO {
 		return -1;
 
 	}
+	private int checkPw(String id) {
+		for (int i = 0; i < memberList.size(); i++) {
+			if (memberList.get(i).getId().equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+
+	}
+	public void changePw(String id) {
+		String pw=Util.getValueS("패스워드 입력");
+		String changepw=Util.getValueS("신규 패스워드 입력");
+		if(pw.equals(changepw)) {
+			System.out.println("다른비밀번호 입력해주세요");
+			return;
+		}
+		int idx=checkPw(id);
+		memberList.get(idx).setPw(changepw);
+		System.out.println("비밀번호 변경완료");
+	}
 
 }

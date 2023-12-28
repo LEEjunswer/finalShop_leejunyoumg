@@ -26,11 +26,11 @@ public class MemberBoard implements MenuCommand{
 			System.out.println("종료");
 			cont.setNext(null);
 		}else if(sel==1) {
-			
+			dao.show();
 		}else if(sel==2) {
 			dao.makeBoard(cont.getLoginId());
 		}else if(sel==3) {
-			
+			dao.myBoard(cont.getLoginId());
 		}else {
 			System.out.println("뒤로가기");
 			cont.setNext("MemberMain");

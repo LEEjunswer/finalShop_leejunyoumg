@@ -71,11 +71,11 @@ public class BoardDAO {
 		}
 	}
 
-	void myBoard(String id) {
+	public void myBoard(String id) {
 		int i = 0;
 		for (Board b : boardList) {
 			if (b.getId().equals(id)) {
-				System.out.printf("[%d]" + b.MyString(), ++i);
+				System.out.printf("[%d]" + b.MyString()+"\n", ++i);
 			}
 		}
 		System.out.println("[1]삭제\n[0]돌아가기");

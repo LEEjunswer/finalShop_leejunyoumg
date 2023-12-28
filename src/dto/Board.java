@@ -1,17 +1,17 @@
 package dto;
 
-import java.time.LocalDate;
 
 public class Board {
 	private static int num;
+
 	private int boardNum;
 	private String title;
 	private String id;
 	private String date;
 	private String contents;
 	private int hits;
-
-	public Board(int boradNum, String title, String id, String date, String contents, int hits) {
+	
+	public Board(int boardNum, String title, String id, String date, String contents, int hits) {
 		this.boardNum = boardNum;
 		this.title = title;
 		this.id = id;
@@ -19,7 +19,10 @@ public class Board {
 		this.contents = contents;
 		this.hits = hits;
 	}
-				
+
+
+
+	
 	public static int getNum() {
 		return num;
 	}
@@ -86,5 +89,6 @@ public class Board {
 	public String content() {
 		return "%s".formatted(contents);
 	}
+
 
 }

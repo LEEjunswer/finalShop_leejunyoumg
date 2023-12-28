@@ -25,9 +25,9 @@ public class _MemberMain implements MenuCommand {
 		}else if(sel==2) {
 			cont.setNext("MemberCart");
 		}else if(sel==3) {
-			
+			cont.setNext("MemberBoard");
 		}else if(sel==4) {
-		
+			cont.setNext("MemberInfo");
 		}else if(sel==5) {
 			
 		}else {

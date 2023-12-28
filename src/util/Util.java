@@ -33,4 +33,9 @@ public class Util {
 		String id =scan.next();
 		return id;
 	}
+	public static int password(String msg) {
+		System.out.println(msg);
+		int input =scan.nextInt();	
+		return input;
+	}
 	}
