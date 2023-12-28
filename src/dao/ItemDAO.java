@@ -1,16 +1,23 @@
 package dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import controller.MallController;
 import dto.Item;
 import util.Util;
 
 public class ItemDAO {
+	MallController cont;
 	ArrayList<Item> itemList;
-	private static ItemDAO instance = new ItemDAO();
+	static private ItemDAO instance = new ItemDAO();
+	CartDAO cart;
+	int count;
 
 	ItemDAO() {
+		cart = CartDAO.getInstance();
 		itemList = new ArrayList<Item>();
 	}
 
@@ -20,7 +27,8 @@ public class ItemDAO {
 	}
 
 	private void insertItem(String cate, String item, int price) {
-		Item mak = new Item(cate, item, price);
+		Item mak = new Item(++count, cate, item, price);
+
 		itemList.add(mak);
 	}
 
@@ -50,7 +58,7 @@ public class ItemDAO {
 
 	public void delItem() {
 		showItem();
-		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 1, itemList.size());
+		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 0, itemList.size()) - 1;
 	}
 
 	public void showItem() {
@@ -61,13 +69,64 @@ public class ItemDAO {
 		}
 	}
 
-	public void showCate() {
-		if (itemList.size() == 0) {
-		System.out.println("주문하실 아이템이 없습니다");
-			return;	
+	public void buyItem(String cate) {
+		int index=0;
+		for(int i=0; i<itemList.size(); i++) {
+			if(itemList.get(i).getCategoryName().equals(cate)) {
+				index=i;
+			}
 		}
-		ArrayList<Item> temp=itemList;
-//		temp=Arrays.strea
+		int iCnt = 0;
+		System.out.printf("[%s]의 아이템 목록\n", itemList.get(index).getCategoryName());
+		for (int i = 0; i < itemList.size(); i++) {
+			if (itemList.get(i).getCategoryName().equals(itemList.get(index).getCategoryName())) {
+				System.out.printf("[%d] %s  %d\n", ++iCnt, itemList.get(i).getItemName(), itemList.get(i).getPrice());
+			}
+		}
+
+	}
+
+	public String showCate() {
+		cont=MallController.getInstance();
+		List<String> li = new ArrayList();
+		for(int i=0; i<itemList.size(); i++){
+			if(!li.contains(itemList.get(i).getCategoryName())) {
+				li.add(itemList.get(i).getCategoryName());
+			}
+		}
+		int t=0;
+		System.out.println("========== 쇼핌몰에 오신것을 환영합니다===========");
+		for(int i=0; i<li.size(); i++) {
+			System.out.printf("[%d] %s \n",++t,li.get(i));
+		}
+		System.out.println("[0]뒤로가기");
+			int inputcate = Util.getValueI("메뉴입력", 0,li.size());
+			if (inputcate == 0) {
+				System.out.println("뒤로가기");
+				cont.setNext("MemberMain");
+				return "";
+			}
+			String name="";
+			name=li.get(inputcate-1);
+			return name;
+			}
+		
+
+	
+
+	public int checkItemNum(String ite) {
+		for(int i=0; i<itemList.size(); i++) {
+			if(itemList.get(i).getItemName().equals(ite)) {
+				return i;
+			}
+			
+	}
+		return -1;
+
+}
+
+	void myItemCart() {
+
 	}
 
 }

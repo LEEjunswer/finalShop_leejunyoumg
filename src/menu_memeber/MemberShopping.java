@@ -11,6 +11,7 @@ import util.Util;
 public class MemberShopping implements MenuCommand {
 	MallController cont;
 	ItemDAO item;
+	CartDAO cart;
 	@Override
 	public void init() {
 		cont = MallController.getInstance();
@@ -19,11 +20,12 @@ public class MemberShopping implements MenuCommand {
 
 	@Override
 	public boolean update() {
-		item = ItemDAO.getInstance();
-		item.showCate();
-		int sel=Util.getValueI("번호를 입력하세요", 0, 10)-1;
+//		item = ItemDAO.getInstance();
+//		item.showCate();
+//		int sel=Util.getValueI("번호를 입력하세요", 0, 10)-1;
+		cart = CartDAO.getInstance();
+		cart.addItem(cont.getLoginId());
 		
-
 		return false;
 	}
 

@@ -2,11 +2,13 @@ package dao;
 
 import java.util.ArrayList;
 
+import controller.MallController;
 import dto.Member;
 import util.Util;
 
 public class MemberDAO {
 	private ArrayList<Member> memberList;
+	MallController cont;
 	static private MemberDAO instance = new MemberDAO();
 
 	public static MemberDAO getInstance() {
@@ -15,6 +17,7 @@ public class MemberDAO {
 	}
 
 	MemberDAO() {
+		cont= MallController.getInstance();
 		memberList = new ArrayList<Member>();
 	}
 
@@ -43,7 +46,7 @@ public class MemberDAO {
 		return null;
 	}
 
-	public void adminDelUser() {
+	public void adminDelUser() { //adminUser 나중에 아이템도 한꺼번에 삭제
 		showUser();
 		if (memberList.size() == 0)
 			return;
@@ -103,6 +106,15 @@ public class MemberDAO {
 		int idx=checkPw(id);
 		memberList.get(idx).setPw(changepw);
 		System.out.println("비밀번호 변경완료");
+	}
+	
+	public void myAccountDel(String id) {
+		int idx=checkNumId(id);
+		memberList.remove(idx);
+		cont.setLoginId(null);
+		System.out.println("회원탈퇴 완료");
+		cont.setNext("MallMain");
+		
 	}
 
 }

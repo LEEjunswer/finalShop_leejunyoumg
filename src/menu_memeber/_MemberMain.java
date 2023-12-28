@@ -10,7 +10,7 @@ public class _MemberMain implements MenuCommand {
 	@Override
 	public void init() {
 		cont = MallController.getInstance();
-		System.out.println("[1]상품구매\n[2]구매내역\n[3]게시판\n[4]나의 정보\n[5]회원 탈퇴\n[6]로그아웃\n[7]종료");
+		System.out.println("[1]상품구매\n[2]구매내역\n[3]게시판\n[4]나의 정보\n[5]회원 탈퇴\n[6]로그아웃\n[0]종료");
 		System.out.println("=====================");
 	}
 
@@ -29,9 +29,11 @@ public class _MemberMain implements MenuCommand {
 		}else if(sel==4) {
 			cont.setNext("MemberInfo");
 		}else if(sel==5) {
-			
+			cont.setNext("MemberQuit");
 		}else {
-			
+			System.out.println("로그아웃완료");
+			cont.setLoginId(null);
+			cont.setNext("MallMain");
 		}
 		
 		

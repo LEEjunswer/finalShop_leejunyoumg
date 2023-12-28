@@ -12,16 +12,26 @@ public class MemberCart implements MenuCommand {
 
 	@Override
 	public void init() {
-		cont= MallController.getInstance();
+		cont = MallController.getInstance();
 		System.out.println("=======[ 구매내역 ] ========");
-		System.out.println("[1]쇼핑하기\n[2]뒤로가기\n[3]종료");
+		System.out.println("[1]쇼핑하기\n[2]뒤로가기\n[0]종료\n");
+		System.out.println("========================");
 	}
 
 	@Override
 	public boolean update() {
-		int sel=Util.getValueI("메뉴입력", 0, 2);
+		int sel = Util.getValueI("메뉴입력", 0, 2);
+		if (sel == 1) {
+			System.out.println("쇼핑하기");
+			cont.setNext("MemberShopping");
+		} else if (sel == 2) {
+			cont.setNext("MemberMain");
+		} else {
+			System.out.println("종료");
+			cont.setNext(null);
+		}
 		
-		
+
 		return false;
 	}
 

@@ -7,8 +7,8 @@ public class Item {
 	private String itemName;
 	private int price;
 
-	public Item(String categoryName, String itemName, int price) {
-		this.itemNum=num++;
+	public Item(int itemNum,String categoryName, String itemName, int price) {
+		this.itemNum=itemNum;
 		this.categoryName = categoryName;
 		this.itemName = itemName;
 		this.price = price;
@@ -59,5 +59,17 @@ public class Item {
 		return "[%d] [%s] [%s] [%d원]".formatted(itemNum,categoryName,itemName,price); 
 	}
 	
+	public String buyItem() {
+		return "%s    %d".formatted(itemName,price);
+	}
+	
+	public String cate() {
+		
+		return "%s\n".formatted(categoryName);
+	}
+	
+	public String myBuyitem() {
+		return " %s(    %d원)    ".formatted(itemName,price);
+	}
 
 }

@@ -9,7 +9,7 @@ public class Cart {
 	private int itemNum;
 	private int itemCnt;
 
-	public Cart( String id, int itemNum) {
+	public Cart(int cartNum,String id, int itemNum,int itemCnt) {
 		this.cartNum = cartNum;
 		this.id = id;
 		this.itemNum = itemNum;
@@ -55,5 +55,8 @@ public class Cart {
 	public void setItemCnt(int itemCnt) {
 		this.itemCnt = itemCnt;
 	}
+
+
+	
 
 }
