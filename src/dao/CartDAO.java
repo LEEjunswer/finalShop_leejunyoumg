@@ -153,4 +153,13 @@ public class CartDAO {
 		}
 	
 	}
+	public int cartSellCheck( int itemNum) {
+		int hap=0;
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).getItemNum() == itemNum) {
+				hap+=cartList.get(i).getItemCnt();
+				}
+		}
+		return hap;
+	}
 }

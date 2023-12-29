@@ -2,12 +2,11 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import controller.MallController;
-import dto.Cart;
 import dto.Item;
 import util.Util;
 
@@ -65,7 +64,7 @@ public class ItemDAO {
 		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 1, itemList.size());
 		System.out.printf("%s 아이템 삭제 완료", itemList.get(input - 1).getItemName());
 		itemList.remove(input - 1);
-		cart.myCartCheck(input-1);
+		cart.myCartCheck(input - 1);
 
 	}
 
@@ -111,14 +110,14 @@ public class ItemDAO {
 		for (int i = 0; i < li.size(); i++) {
 			System.out.printf("[%d] %s \n", ++t, li.get(i));
 		}
-		
-		int choice=Util.getValueI("메뉴입력", 1, li.size());
-		String name="";
-			name=li.get(choice-1);
-			return name;
-		
-	
+
+		int choice = Util.getValueI("메뉴입력", 1, li.size());
+		String name = "";
+		name = li.get(choice - 1);
+		return name;
+
 	}
+
 	public int checkItemNum(String ite) {
 		for (int i = 0; i < itemList.size(); i++) {
 			if (itemList.get(i).getItemName().equals(ite)) {
@@ -129,7 +128,37 @@ public class ItemDAO {
 		return -1;
 
 	}
-	
+
+	public void checkSellCur() {
+		cart = CartDAO.getInstance();
+		if (cart.cartList.size() == 0) {
+			System.out.println("판매한 제품이 없습니다");
+			return;
+		}
+
+		Map<String, Integer> sellCur = new HashMap<String, Integer>();
+		for (int i = 0; i < itemList.size(); i++) {
+			int itemN = 0;
+			itemN = cart.cartSellCheck(itemList.get(i).getItemNum());
+			sellCur.put(itemList.get(i).getItemName(), itemN);
+		}
+		List<String> keySet = new ArrayList<>(sellCur.keySet());
+		keySet.sort((o1, o2) -> sellCur.get(o2).compareTo(sellCur.get(o1)));
+
+		for (String key : keySet) {
+			for (Item i : itemList) {
+				if (i.getItemName().equals(key)) {
+					if (sellCur.get(key) != 0) {
+						System.out.printf("%s %d개\n", i, sellCur.get(key));
+						break;
+					} else {
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	private void showAdminItem() {
 		if (itemList.size() == 0) {
 			System.out.println("판매하시는 아이템이 존재하지 않습니다 먼저 추가해주세요");
@@ -149,18 +178,19 @@ public class ItemDAO {
 		}
 		return data;
 	}
+
 	public void loadItem(String data) {
-		String[] s=data.split("\n");
-		int check=s.length;
-		if(check==0) {
+		String[] s = data.split("\n");
+		int check = s.length;
+		if (check == 0) {
 			return;
 		}
 		itemList.clear();
-		for(String t : s) {
-			String[] info =t.split("/");
-			Item tes= new Item(Integer.parseInt(info[0]),info[1],info[2],Integer.parseInt(info[3]));
+		for (String t : s) {
+			String[] info = t.split("/");
+			Item tes = new Item(Integer.parseInt(info[0]), info[1], info[2], Integer.parseInt(info[3]));
 			itemList.add(tes);
 		}
-	
+
 	}
 }

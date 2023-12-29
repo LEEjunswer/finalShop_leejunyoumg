@@ -148,11 +148,7 @@ public class BoardDAO {
 
 	public void loadBoard(String data) {
 		String[] s = data.split("\n");
-		for (String t : s) {
-			System.out.println(t);
-		}
 		num = s.length;
-		System.out.println(cnt);
 		if (cnt == 0) {
 			return;
 		}

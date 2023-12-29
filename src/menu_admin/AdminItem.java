@@ -31,8 +31,8 @@ public class AdminItem implements MenuCommand {
 			dao.addItem();
 		} else if (sel == 2) {
 			dao.delItemAdmin();
-		} else if (sel == 3) {
-			
+		} else if (sel == 3) { 
+			dao.checkSellCur();
 		} else {
 			cont.setNext("AdminMain");
 		}
