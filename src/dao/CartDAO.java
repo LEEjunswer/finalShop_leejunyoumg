@@ -141,7 +141,7 @@ public class CartDAO {
 	}
 	public void loadCart(String data) {
 		String[] s=data.split("\n");
-		int cnt=s.length;
+		cnt=s.length;
 		if(cnt==0) {
 			return;
 		}

@@ -10,7 +10,7 @@ import util.Util;
 public class MemberDAO {
 	private ArrayList<Member> memberList;
 	MallController cont;
-	int num;
+	int num=0;
 	static private MemberDAO instance = new MemberDAO();
 
 	public static MemberDAO getInstance() {
@@ -33,12 +33,17 @@ public class MemberDAO {
 		}
 		return null;
 	}
+	public void makeIdAdmin(String id, String pw, String memberName) {
+		
+		Member make = new Member(1000,id, pw, memberName);
+		memberList.add(make);
+	}
 
 	public void makeId(String id, String pw, String memberName) {
 		
-		Member make = new Member(num+1000,id, pw, memberName);
+		Member make = new Member(++num+1000,id, pw, memberName);
 		memberList.add(make);
-		num++;
+		num=++num;
 	}
 
 	public String getLogCheck(String id, String pw) {
@@ -143,6 +148,7 @@ public class MemberDAO {
 			Member tes= new Member(Integer.parseInt(info[0]),info[1],info[2],info[3]);
 			memberList.add(tes);
 		}
+		num=memberList.size();
 		
 	
 	}

@@ -62,10 +62,10 @@ public class ItemDAO {
 	public void delItemAdmin() {
 		cart = CartDAO.getInstance();
 		showItem();
-		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 0, itemList.size());
+		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 1, itemList.size());
 		System.out.printf("%s 아이템 삭제 완료", itemList.get(input - 1).getItemName());
 		itemList.remove(input - 1);
-		cart.myCartCheck(input);
+		cart.myCartCheck(input-1);
 
 	}
 

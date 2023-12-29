@@ -25,6 +25,9 @@ public class MallJoin implements MenuCommand {
 		}
 		String pw =Util.getValueS("회원가입하실 비밀번호를 입력하세요");
 		String name=Util.getValueS("회원가입하실 이름을 입력하세요");
+		if(id.equals("admin")) {
+			dao.makeIdAdmin(id,pw,name);
+		}
 		dao.makeId(id, pw, name);
 		System.out.println("회원가입완료");
 		cont.setNext("MallMain");
