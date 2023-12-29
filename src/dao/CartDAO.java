@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import controller.MallController;
+import dto.Board;
 import dto.Cart;
 import dto.Item;
 import util.Util;
@@ -28,10 +29,12 @@ public class CartDAO {
 		Cart car = new Cart(cartNum, id, itemNum, itemCnt);
 		cartList.add(car);
 	}
-	private int cartHaveCheck(String id,int itemNum) {
-		if(cartList.size()==0) return-1; 
-		for(int i=0; i<cartList.size(); i++) {
-			if(cartList.get(i).getId().equals(id) && cartList.get(i).getItemNum()==itemNum) {
+
+	private int cartHaveCheck(String id, int itemNum) {
+		if (cartList.size() == 0)
+			return -1;
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).getId().equals(id) && cartList.get(i).getItemNum() == itemNum) {
 				return i;
 			}
 		}
@@ -41,10 +44,8 @@ public class CartDAO {
 	public void addItem(String id) {
 		cont = MallController.getInstance();
 		item = ItemDAO.getInstance();
-		int t = 0;
-		item.showCate();
-		String idx = item.showCate();
-		if(idx.equals("back")) {
+		String idx=item.showCate();
+		if (idx.equals("back")) {
 			cont.setNext("MemberMain");
 		}
 		item.buyItem(idx);
@@ -56,17 +57,19 @@ public class CartDAO {
 			}
 			int ea = Util.getValueI("아이템 구매 수량", 1, 100);
 			int index = item.checkItemNum(sel);
-			if (cartHaveCheck(id,index)!=-1) {
-				int es = cartList.get(index).getItemCnt();
+			//int cartNum,String id, int itemNum,int itemCnt
+			if (cartHaveCheck(id, index) != -1) {
+				int t =cartHaveCheck(id, index);
+				int es = cartList.get(t).getItemCnt();
 				cartList.get(index).setItemCnt(es + ea);
-				System.out.printf("기존에 장바구니 아이템이 존재하여 %s 기존%d 개수에서 추가하여 합 %d입니다\n", sel, es, es + ea);
+				System.out.printf("%s 기존 %d개에서 +%d개 추가하여 합 %d입니다\n", sel, es,ea,es + ea);
 				break;
 			}
 			addCart(++cnt, id, index, ea);
-			System.out.printf("[%s %d개 구매 완료]", sel, ea);
+			System.out.printf("[%s %d개 구매 완료]\n", sel, ea);
 			break;
 		}
-
+		cont.setNext("MemberMain");
 	}
 
 	public void myCartCheck(int it) {
@@ -105,37 +108,49 @@ public class CartDAO {
 			System.out.println("장바구니가 비어있습니다");
 			return;
 		}
-		ArrayList<Cart> temp = cartList;
 		ArrayList<Cart> tes = new ArrayList<Cart>();
-		for (int i = 0; i < temp.size(); i++) {
-			if (temp.get(i).getId().equals(id)) {
-				Cart teq = new Cart(temp.get(i).getCartNum(), temp.get(i).getId(), temp.get(i).getItemNum(),
-						temp.get(i).getItemCnt());
-				tes.add(teq);
-			}
+		for (Cart c : cartList) {
+			Cart teq = new Cart(c.getCartNum(), c.getId(), c.getItemNum(), c.getItemCnt());
+			tes.add(teq);
 		}
 		int hap = 0;
 		int s = 0;
+		int iCnt=0;
 		for (Item i : item.itemList) {
 			for (Cart c : tes) {
-				if (c.getItemNum() == i.getItemNum()) {
-					System.out.printf("[%d]  %s(    %d원)    %d개 총 %d원\n", ++s, i.getItemName(), i.getPrice(),
+				if (i.getItemNum() == c.getItemNum()) {
+					System.out.printf("[%d]  %s(    %d원)    %d개 총 %d원\n", ++iCnt, i.getItemName(), i.getPrice(),
 							c.getItemCnt(), i.getPrice() * c.getItemCnt());
-					hap+=c.getItemCnt()*i.getPrice(); //총가격
-					s+=c.getItemCnt(); //총개수
-					break;
+					hap += c.getItemCnt() * i.getPrice(); // 총가격
+					s += c.getItemCnt(); // 총개수
 				}
 			}
 		}
-		System.out.printf("총  %d 개  ( %d )원",s,hap);
-		
+		System.out.printf("총  %d 개  ( %d )원\n", s, hap);
+
 	}
+
 	public String cartSave() {
-		if(cartList.size()==0) return "";
-		String data="";
-		for(Cart c : cartList) {
-			data+=c.saveCartData();
+		if (cartList.size() == 0)
+			return "";
+		String data = "";
+		for (Cart c : cartList) {
+			data += c.saveCartData();
 		}
 		return data;
+	}
+	public void loadCart(String data) {
+		String[] s=data.split("\n");
+		int cnt=s.length;
+		if(cnt==0) {
+			return;
+		}
+		cartList.clear();
+		for(String t : s) {
+			String[] info =t.split("/");
+			Cart tes= new Cart(Integer.parseInt(info[0]),info[1],Integer.parseInt(info[2]),Integer.parseInt(info[3]));
+			cartList.add(tes);
+		}
+	
 	}
 }

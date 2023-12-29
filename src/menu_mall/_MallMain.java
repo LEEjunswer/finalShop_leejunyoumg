@@ -6,6 +6,7 @@ import util.Util;
 
 public class _MallMain implements MenuCommand {
 	private MallController cont;
+	
 
 	@Override
 	public void init() {

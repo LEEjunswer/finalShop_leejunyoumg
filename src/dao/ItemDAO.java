@@ -100,7 +100,6 @@ public class ItemDAO {
 	}
 
 	public String showCate() {
-		cont = MallController.getInstance();
 		List<String> li = new ArrayList();
 		for (int i = 0; i < itemList.size(); i++) {
 			if (!li.contains(itemList.get(i).getCategoryName())) {
@@ -112,28 +111,25 @@ public class ItemDAO {
 		for (int i = 0; i < li.size(); i++) {
 			System.out.printf("[%d] %s \n", ++t, li.get(i));
 		}
-		System.out.println("[0]뒤로가기");
-		int hoy = Util.cage("메뉴입력", 0, li.size());
-		if (hoy == 0) {
-			System.out.println("뒤로가기");
-			return "back";
-		} else {
-			String name = "";
-			name = li.get(hoy-1);
+		
+		int choice=Util.getValueI("메뉴입력", 1, li.size());
+		String name="";
+			name=li.get(choice-1);
 			return name;
-		}
+		
+	
 	}
 	public int checkItemNum(String ite) {
 		for (int i = 0; i < itemList.size(); i++) {
 			if (itemList.get(i).getItemName().equals(ite)) {
-				return i;
+				return itemList.get(i).getItemNum();
 			}
 
 		}
 		return -1;
 
 	}
-
+	
 	private void showAdminItem() {
 		if (itemList.size() == 0) {
 			System.out.println("판매하시는 아이템이 존재하지 않습니다 먼저 추가해주세요");
@@ -152,5 +148,19 @@ public class ItemDAO {
 			data += i.SaveItemData();
 		}
 		return data;
+	}
+	public void loadItem(String data) {
+		String[] s=data.split("\n");
+		int check=s.length;
+		if(check==0) {
+			return;
+		}
+		itemList.clear();
+		for(String t : s) {
+			String[] info =t.split("/");
+			Item tes= new Item(Integer.parseInt(info[0]),info[1],info[2],Integer.parseInt(info[3]));
+			itemList.add(tes);
+		}
+	
 	}
 }

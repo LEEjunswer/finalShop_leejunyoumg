@@ -80,10 +80,10 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "(%d) [제목 : %s   작성자:%s  날짜:%s 조회수:%d]".formatted(boardNum,title,id,date,contents,hits);
+		return "(%d) [제목 : %s   작성자:%s  날짜:%s 조회수:%d]\n".formatted(boardNum,title,id,date,hits);
 	}
 	public String MyString() {
-		return " [제목 : %s   작성자:%s  날짜:%s 조회수:%d]".formatted(title,id,date,contents,hits);
+		return "[제목 : %s   작성자:%s  날짜:%s  조회수:%d]".formatted(title,id,date,hits);
 	}
 	
 	public String content() {

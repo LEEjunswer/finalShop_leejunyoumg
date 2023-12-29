@@ -7,16 +7,18 @@ import util.Util;
 
 public class _AdminMain implements MenuCommand {
 	MallController cont;
+	FileDAO dao;
 	@Override
 	public void init() {
 		cont=MallController.getInstance();
 		System.out.println("======[ 관리자 ] ======");
-		System.out.println("[1]회원관리\n[2]상품관리\n[3]게시판관리\n[4]로그아웃\n[5]파일저장\n[6]종료");
+		System.out.println("[1]회원관리\n[2]상품관리\n[3]게시판관리\n[4]로그아웃\n[5]파일저장\n[6]파일로드\n[0]종료");
 	}
 
 	@Override
 	public boolean update() {
-		int sel=Util.getValueI("메뉴 입력", 0, 5);
+		dao=FileDAO.getInstance();
+		int sel=Util.getValueI("메뉴 입력", 0, 6);
 		if(sel==0) {
 			System.out.println("종료");
 			cont.setNext(null);
@@ -29,8 +31,12 @@ public class _AdminMain implements MenuCommand {
 		}else if(sel==4) {
 			cont.setLoginId(null);
 			cont.setNext("MallMain");
-		}else{
-			
+		}else if(sel==5){
+			dao.saveData();
+		}else {
+			dao.loadFile();
+			cont.setLoginId(null);
+			cont.setNext("MallMain");
 		}
 
 		return false;

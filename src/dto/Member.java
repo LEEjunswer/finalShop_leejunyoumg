@@ -7,8 +7,8 @@ public class Member {
 	private String pw;
 	private String memberName;
 
-	public Member(String id, String pw, String memberName) {
-		this.memberNum=++num;
+	public Member(int memberNum,String id, String pw, String memberName) {
+		this.memberNum=memberNum;
 		this.id = id;
 		this.pw = pw;
 		this.memberName = memberName;

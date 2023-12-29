@@ -13,44 +13,32 @@ public class Util {
 
 	public static int getValueI(String msg, int start, int end) {
 		while (true) {// 숫자 입력
-			System.out.printf(msg+"[%d ~ %d]",start,end);
+			System.out.printf(msg + "[%d ~ %d]", start, end);
 			try {
 				int input = scan.nextInt();
+				scan.nextLine();
 				if (input < start || input > end) {
 					System.out.println("잘못입력하셧습니다");
-						continue;
+					continue;
 				}
-				scan.nextLine();
 				return input;
 			} catch (InputMismatchException e) {
+				scan.nextLine();
 				System.out.println("숫자만입력하세요");
 			}
 		}
 	}
-	public static int cage(String msg, int start, int end) { //임시
-		while (true) {// 숫자 입력
-			System.out.printf(msg+"[%d ~ %d]",start,end);
-			try {
-				int input = scan.nextInt();
-				if (input < start || input > end) {
-					System.out.println("잘못입력하셧습니다");
-						continue;
-				}
-				scan.nextLine();
-				return input;
-			} catch (InputMismatchException e) {
-				System.out.println("숫자만입력하세요");
-			}
-		}
-	}
-	public static String getValueS(String msg) { 
+
+
+	public static String getValueS(String msg) {
 		System.out.println(msg);
-		String id =scan.next();
+		String id = scan.next();
 		return id;
 	}
+
 	public static int password(String msg) {
 		System.out.println(msg);
-		int input =scan.nextInt();	
+		int input = scan.nextInt();
 		return input;
 	}
-	}
+}

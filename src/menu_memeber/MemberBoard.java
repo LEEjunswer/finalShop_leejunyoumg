@@ -21,6 +21,7 @@ public class MemberBoard implements MenuCommand{
 
 	@Override
 	public boolean update() {
+		dao = BoardDAO.getInstance();
 		int sel=Util.getValueI("메뉴 선택", 0, 4);
 		if(sel==0) {
 			System.out.println("종료");

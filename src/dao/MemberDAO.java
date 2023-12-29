@@ -3,12 +3,14 @@ package dao;
 import java.util.ArrayList;
 
 import controller.MallController;
+import dto.Board;
 import dto.Member;
 import util.Util;
 
 public class MemberDAO {
 	private ArrayList<Member> memberList;
 	MallController cont;
+	int num;
 	static private MemberDAO instance = new MemberDAO();
 
 	public static MemberDAO getInstance() {
@@ -33,8 +35,10 @@ public class MemberDAO {
 	}
 
 	public void makeId(String id, String pw, String memberName) {
-		Member make = new Member(id, pw, memberName);
+		
+		Member make = new Member(num+1000,id, pw, memberName);
 		memberList.add(make);
+		num++;
 	}
 
 	public String getLogCheck(String id, String pw) {
@@ -127,4 +131,20 @@ public class MemberDAO {
 		return data;
 
 }
+	public void loadMember(String data) {
+		String[] s=data.split("\n");
+		int check =s.length;
+		if(check==0) {
+			return;
+		}
+		memberList.clear();
+		for(int i=0; i<check; i++) {
+			String[] info =s[i].split("/");
+			Member tes= new Member(Integer.parseInt(info[0]),info[1],info[2],info[3]);
+			memberList.add(tes);
+		}
+		
+	
+	}
+	
 }
