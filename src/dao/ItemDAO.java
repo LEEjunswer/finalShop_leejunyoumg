@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class ItemDAO {
 	int count;
 
 	ItemDAO() {
-		
+
 		itemList = new ArrayList<Item>();
 	}
 
@@ -46,6 +47,7 @@ public class ItemDAO {
 	}
 
 	public void addItem() {
+		showAdminItem();
 		String name = Util.getValueS("추가하실 아이템 입력");
 		if (checkItem(name) != null) {
 			System.out.println("아이템or카테고리가 이 존재합니다");
@@ -61,14 +63,15 @@ public class ItemDAO {
 		cart = CartDAO.getInstance();
 		showItem();
 		int input = Util.getValueI("삭제할 아이템 번호를 입력하세요", 0, itemList.size());
-		System.out.printf("%s 아이템 삭제 완료",itemList.get(input-1).getItemName());
-		itemList.remove(input-1);
+		System.out.printf("%s 아이템 삭제 완료", itemList.get(input - 1).getItemName());
+		itemList.remove(input - 1);
 		cart.myCartCheck(input);
-		
+
 	}
+
 	public void delItemMy(String id) {
 		cart = CartDAO.getInstance();
-		
+
 	}
 
 	public void showItem() {
@@ -80,10 +83,10 @@ public class ItemDAO {
 	}
 
 	public void buyItem(String cate) {
-		int index=0;
-		for(int i=0; i<itemList.size(); i++) {
-			if(itemList.get(i).getCategoryName().equals(cate)) {
-				index=i;
+		int index = 0;
+		for (int i = 0; i < itemList.size(); i++) {
+			if (itemList.get(i).getCategoryName().equals(cate)) {
+				index = i;
 			}
 		}
 		int iCnt = 0;
@@ -97,46 +100,57 @@ public class ItemDAO {
 	}
 
 	public String showCate() {
-		cont=MallController.getInstance();
+		cont = MallController.getInstance();
 		List<String> li = new ArrayList();
-		for(int i=0; i<itemList.size(); i++){
-			if(!li.contains(itemList.get(i).getCategoryName())) {
+		for (int i = 0; i < itemList.size(); i++) {
+			if (!li.contains(itemList.get(i).getCategoryName())) {
 				li.add(itemList.get(i).getCategoryName());
 			}
 		}
-		int t=0;
+		int t = 0;
 		System.out.println("========== 쇼핌몰에 오신것을 환영합니다===========");
-		for(int i=0; i<li.size(); i++) {
-			System.out.printf("[%d] %s \n",++t,li.get(i));
+		for (int i = 0; i < li.size(); i++) {
+			System.out.printf("[%d] %s \n", ++t, li.get(i));
 		}
 		System.out.println("[0]뒤로가기");
-			int inputcate = Util.getValueI("메뉴입력", 0,li.size());
-			if (inputcate == 0) {
-				System.out.println("뒤로가기");
-				cont.setNext("MemberMain");
-				return "";
-			}
-			String name="";
-			name=li.get(inputcate-1);
+		int hoy = Util.cage("메뉴입력", 0, li.size());
+		if (hoy == 0) {
+			System.out.println("뒤로가기");
+			return "back";
+		} else {
+			String name = "";
+			name = li.get(hoy-1);
 			return name;
-			}
-		
-
-	
-
+		}
+	}
 	public int checkItemNum(String ite) {
-		for(int i=0; i<itemList.size(); i++) {
-			if(itemList.get(i).getItemName().equals(ite)) {
+		for (int i = 0; i < itemList.size(); i++) {
+			if (itemList.get(i).getItemName().equals(ite)) {
 				return i;
 			}
-			
-	}
+
+		}
 		return -1;
 
-}
+	}
 
-	void myItemCart() {
+	private void showAdminItem() {
+		if (itemList.size() == 0) {
+			System.out.println("판매하시는 아이템이 존재하지 않습니다 먼저 추가해주세요");
+			return;
+		}
+		List<Item> temp = itemList;
+		temp.stream().sorted(Comparator.comparing(Item::getCategoryName)).forEach(System.out::println);
 
 	}
 
+	public String itemSave() {
+		if (itemList.size() == 0)
+			return "";
+		String data = "";
+		for (Item i : itemList) {
+			data += i.SaveItemData();
+		}
+		return data;
+	}
 }

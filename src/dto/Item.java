@@ -71,5 +71,8 @@ public class Item {
 	public String myBuyitem() {
 		return " %s(    %d원)    ".formatted(itemName,price);
 	}
+	public String SaveItemData() {
+		return "%d/%s/%s/%d\n".formatted(itemNum,categoryName,itemName,price);
+	}
 
 }

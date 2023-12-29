@@ -116,5 +116,15 @@ public class MemberDAO {
 		cont.setNext("MallMain");
 		
 	}
+	public String memberSave() {
+		if(memberList.size()==0) {
+			return"";
+		}
+		String data="";
+		for(Member m : memberList) {
+			data+=m.saveMemberData();
+		}
+		return data;
 
+}
 }

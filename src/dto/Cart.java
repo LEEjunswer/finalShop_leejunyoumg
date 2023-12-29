@@ -60,6 +60,9 @@ public class Cart {
 	public String toString() {
 		return "";
 	}
+	public String saveCartData() {
+		return "%d/%s/%d/%d\n".formatted(cartNum,id,itemNum,itemCnt);
+	}
 
 
 	

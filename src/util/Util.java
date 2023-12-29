@@ -27,7 +27,22 @@ public class Util {
 			}
 		}
 	}
-
+	public static int cage(String msg, int start, int end) { //임시
+		while (true) {// 숫자 입력
+			System.out.printf(msg+"[%d ~ %d]",start,end);
+			try {
+				int input = scan.nextInt();
+				if (input < start || input > end) {
+					System.out.println("잘못입력하셧습니다");
+						continue;
+				}
+				scan.nextLine();
+				return input;
+			} catch (InputMismatchException e) {
+				System.out.println("숫자만입력하세요");
+			}
+		}
+	}
 	public static String getValueS(String msg) { 
 		System.out.println(msg);
 		String id =scan.next();

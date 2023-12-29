@@ -50,5 +50,8 @@ public class Member {
 	public String toString() {
 		return "[%d] [%s] [%s] [%s]".formatted(memberNum,id,pw,memberName);
 	}
+	public String saveMemberData() {
+		return "%s/%s/%s\n".formatted(id,pw,memberName);
+	}
 
 }

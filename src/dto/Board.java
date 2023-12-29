@@ -89,6 +89,10 @@ public class Board {
 	public String content() {
 		return "%s".formatted(contents);
 	}
+	public String saveBoardData() {
+		
+		return "%d/%s/%s/%s/%s/%d\n".formatted(boardNum,title,id,date,contents,hits);
+	}
 
 
 }

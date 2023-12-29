@@ -100,11 +100,12 @@ public class BoardDAO {
 	private void delBoard(String id) {
 		if (!hasData())
 			return;
-		int sel = Util.getValueI("삭제할 게시글 번호 입력", forwardPage, backPage) - 1;
+		int sel = Util.getValueI("삭제할 게시글 번호 입력", forwardPage+1, backPage);
+		int c=sel-1;
 		for (int i = 0; i < cnt; i++) {
 			if (boardList.get(i).getId().equals(id)) {
-				if (sel == i) {
-					boardList.remove(i);
+				if (c == i) {
+					boardList.remove(c);
 					System.out.println("삭제 완료");
 					i--;
 					return;
@@ -114,12 +115,12 @@ public class BoardDAO {
 		System.out.println("본인 게시글만 삭제할 수 있습니다");
 	}
 	private void lookBoard() {
-		int sel=Util.getValueI("게시글 번호 입력", 0, 5)-1;
-		int hit=boardList.get(sel).getHits();
-		boardList.get(sel).setHits(++hit);
-		System.out.println(boardList.get(sel).toString());
+		int sel=Util.getValueI("게시글 번호 입력", 1, 5);
+		int hit=boardList.get(sel-1).getHits();
+		boardList.get(sel-1).setHits(++hit);
+		System.out.println(boardList.get(sel-1).toString());
 		System.out.println("--------");
-		System.out.println(boardList.get(sel).content());
+		System.out.println(boardList.get(sel-1).content());
 		cont.setNext("MemberBoard");
 	}
 
